@@ -1,6 +1,6 @@
-const EventSourcer = require('../solution_javascript');
+const EventSourcer = require("../solution_javascript");
 
-test('test add', () => {
+test("test add", () => {
   let sourcer = new EventSourcer();
 
   sourcer.add(2);
@@ -9,7 +9,7 @@ test('test add', () => {
   expect(sourcer.value).toEqual(7);
 });
 
-test('test subtract', () => {
+test("test subtract", () => {
   let sourcer = new EventSourcer();
 
   sourcer.subtract(2);
@@ -18,7 +18,7 @@ test('test subtract', () => {
   expect(sourcer.value).toEqual(-7);
 });
 
-test('test undo', () => {
+test("test undo", () => {
   let sourcer = new EventSourcer();
 
   sourcer.add(2);
@@ -30,7 +30,7 @@ test('test undo', () => {
   expect(sourcer.value).toEqual(6);
 });
 
-test('test redo', () => {
+test("test redo", () => {
   let sourcer = new EventSourcer();
 
   sourcer.add(2);
@@ -42,7 +42,7 @@ test('test redo', () => {
   expect(sourcer.value).toEqual(6);
 });
 
-test('test redo', () => {
+test("test redo", () => {
   let sourcer = new EventSourcer();
 
   sourcer.add(5);
@@ -56,7 +56,7 @@ test('test redo', () => {
   expect(sourcer.value).toEqual(11);
 });
 
-test('test bulk undo', () => {
+test("test bulk undo", () => {
   let sourcer = new EventSourcer();
 
   sourcer.add(1);
@@ -69,7 +69,7 @@ test('test bulk undo', () => {
   expect(sourcer.value).toEqual(3);
 });
 
-test('test bulk redo', () => {
+test("test bulk redo", () => {
   let sourcer = new EventSourcer();
 
   sourcer.add(1);
@@ -81,12 +81,12 @@ test('test bulk redo', () => {
   sourcer.undo();
   sourcer.undo();
   sourcer.undo();
-  sourcer.bulk_redo(4)
+  sourcer.bulk_redo(4);
 
   expect(sourcer.value).toEqual(5);
 });
 
-test('test undo no actions', () => {
+test("test undo no actions", () => {
   let sourcer = new EventSourcer();
 
   sourcer.undo();
@@ -94,7 +94,7 @@ test('test undo no actions', () => {
   expect(sourcer.value).toEqual(0);
 });
 
-test('test redo with no redo step', () => {
+test("test redo with no redo step", () => {
   let sourcer = new EventSourcer();
 
   sourcer.redo();
@@ -102,7 +102,7 @@ test('test redo with no redo step', () => {
   expect(sourcer.value).toEqual(0);
 });
 
-test('test bulk undo overstep', () => {
+test("test bulk undo overstep", () => {
   let sourcer = new EventSourcer();
 
   sourcer.add(5);
@@ -115,7 +115,7 @@ test('test bulk undo overstep', () => {
   expect(sourcer.value).toEqual(0);
 });
 
-test('test bulk redo overstep', () => {
+test("test bulk redo overstep", () => {
   let sourcer = new EventSourcer();
 
   sourcer.add(5);
@@ -129,4 +129,26 @@ test('test bulk redo overstep', () => {
   sourcer.bulk_redo(5);
 
   expect(sourcer.value).toEqual(25);
+});
+
+test("test multple undo and bulk undo with no value", () => {
+  let sourcer = new EventSourcer();
+
+  sourcer.undo();
+  sourcer.undo();
+  sourcer.undo();
+  sourcer.bulk_undo(5);
+
+  expect(sourcer.value).toEqual(0);
+});
+
+test("test multiple redo and bulk redo with no value", () => {
+  let sourcer = new EventSourcer();
+
+  sourcer.redo();
+  sourcer.redo();
+  sourcer.redo();
+  sourcer.bulk_redo(5);
+
+  expect(sourcer.value).toEqual(0);
 });
